@@ -4,14 +4,7 @@ from django.db import models
 class Board_game(models.Model) :
     # Name of board game
     name = models.CharField(max_length=200)
-    # List of designers
-    designers = models.JSONField()
-    # List of artists
-    artists = models.JSONField()
-    # List of publishers
-    publishers = models.JSONField()
-    # Board games publishing year
-    year_published = models.IntegerField()
+    players = models.CharField(max_length=10, null=True)
     # Automatically applies date when board game is added
     date_added = models.DateTimeField(auto_now_add=True)
     # Automatically applies date when board game is modified

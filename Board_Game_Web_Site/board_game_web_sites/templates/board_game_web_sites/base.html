@@ -14,7 +14,8 @@
 
   </head>
   
-  <body>    <!-- Static navbar -->
+  <body>    
+    <!-- Static navbar -->
     <nav class="navbar navbar-default navbar-static-top">
       <div class="container">
           
@@ -26,6 +27,17 @@
           <a class="navbar-brand" href="{% url 'board_game_web_sites:index' %}">
               Board Game Web Site</a>
         </div>
+
+        <div id="navbarCollapse" class="navbar-collapse collapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+            <a class="nav-link" href="{% url 'board_game_web_sites:games' %}">Games</a></li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li><a>Login stuff here</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
         
       </div>
     </nav>

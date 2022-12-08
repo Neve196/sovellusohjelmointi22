@@ -1,0 +1,20 @@
+{% extends "board_game_web_sites/base.html" %}
+
+{% block header %}
+  <h1>Board Games</h1>
+{% endblock %}
+
+{% block content %}
+
+  <ul>
+    {% for game in games %}
+      <li>
+        {{ game }}
+      </li>
+    {% empty %}
+      <li>No games have been added yet.</li>
+    {% endfor %}
+  </ul>
+  
+
+{% endblock content %}
