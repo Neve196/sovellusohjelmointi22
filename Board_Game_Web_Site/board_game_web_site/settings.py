@@ -33,6 +33,9 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # My apps
     'board_game_web_sites',
+
+    # Third party apps.
+    'bootstrap4',
     
     # Default django apps.
     'django.contrib.admin',
