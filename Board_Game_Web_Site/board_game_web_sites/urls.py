@@ -11,5 +11,7 @@ urlpatterns = [
     # Page that shows all board games
     path('games/', views.games, name='games'),
     # Page for a single game
-    path('games/<int:game_id>/',views.game, name='game')
+    path('games/<int:game_id>/',views.game, name='game'),
+    # Page for adding a new game
+    path('new_game/', views.new_game, name='new_game'),
 ]
