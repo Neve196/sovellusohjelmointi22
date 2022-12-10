@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Models
 class Board_game(models.Model) :
@@ -10,6 +11,7 @@ class Board_game(models.Model) :
     # Automatically applies date when board game is modified
     date_modified = models.DateTimeField(auto_now=True)
     # Returns a string representation of the model
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self):
         return self.name
     

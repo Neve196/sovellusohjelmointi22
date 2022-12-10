@@ -8,3 +8,9 @@ class GameForm(forms.ModelForm):
         fields = ['name']
         labels = {'name':''}
 
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ['text']
+        labels = {'text': 'Entry:'}
+        widgets = {'text': forms.Textarea(attrs={'cols': 80})}
