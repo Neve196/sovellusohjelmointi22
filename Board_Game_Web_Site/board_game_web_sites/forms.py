@@ -11,6 +11,6 @@ class GameForm(forms.ModelForm):
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
-        fields = ['text',]
-        labels = {'text':'Review:'}
-        widgets = {'text':forms.Textarea(attrs={'cols': 80})}
+        fields = ["my_review"]
+        labels = {"my_review":'Review:'}
+        widgets = {'my_review': forms.Textarea(attrs={'cols': 80})}
