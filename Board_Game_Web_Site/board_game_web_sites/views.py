@@ -46,6 +46,17 @@ def new_game(request):
     return render(request, 'board_game_web_sites/new_game.html', context)
 
 @login_required
+def reviews(request, game_id):
+    game = Board_game.objects.get(id = game_id)
+
+    if game.owner != request.user:
+        raise Http404
+
+    reviews = Review.objects.order_by('date_added')
+    context = {'reviews': reviews}
+    return render(request, 'board_game_web_sites/reviews.html', context)
+    
+@login_required
 def new_review(request, game_id):
     """Add a new review for a particular game."""
     game = Board_game.objects.get(id=game_id)

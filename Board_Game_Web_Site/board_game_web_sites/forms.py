@@ -1,6 +1,6 @@
 from django import forms
 
-from . models import Board_game
+from . models import Board_game, Review
 
 class GameForm(forms.ModelForm):
     class Meta:
@@ -11,6 +11,6 @@ class GameForm(forms.ModelForm):
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
-        fields = ['text']
-        labels = {'text': 'Entry:'}
-        widgets = {'text': forms.Textarea(attrs={'cols': 80})}
+        fields = ['text',]
+        labels = {'text':'Review:'}
+        widgets = {'text':forms.Textarea(attrs={'cols': 80})}
