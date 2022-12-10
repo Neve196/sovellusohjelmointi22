@@ -7,3 +7,4 @@ class GameForm(forms.ModelForm):
         model = Board_game
         fields = ['name']
         labels = {'name':''}
+

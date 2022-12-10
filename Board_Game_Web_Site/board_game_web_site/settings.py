@@ -27,12 +27,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+LOGIN_URL = 'users:login'
 # Application definition
 
 INSTALLED_APPS = [
     # My apps
     'board_game_web_sites',
+    'users',
 
     # Third party apps.
     'bootstrap4',

@@ -12,18 +12,21 @@ def index(request):
     """The home page for Board Game Web Site"""
     return render(request, 'board_game_web_sites/index.html')
 
+@login_required
 def games(request):
     """Show all board games"""
     games = Board_game.objects.order_by('date_added')
     context = {'games':games}
     return render(request, 'board_game_web_sites/board_games.html', context)
 
+@login_required
 def game(request, game_id):
     """Show a single game"""
     game = get_object_or_404(Board_game, id=game_id)
     context = {'game': game}
     return render(request, 'board_game_web_sites/board_game.html', context)
 
+@login_required
 def new_game(request):
     '''Add a new game'''
     if request.method != 'POST':
