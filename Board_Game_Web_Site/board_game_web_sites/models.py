@@ -29,3 +29,6 @@ class Review(models.Model):
     # Returns a 50 character string representation of the model
     def __str__(self):
         return f"{self.my_review[:50]}..."
+
+class User(models.Model):
+    username = models.CharField(max_length=200)

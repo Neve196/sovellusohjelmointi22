@@ -16,8 +16,6 @@ def index(request):
 def games(request):
     """Show all board games"""
     games = Board_game.objects.filter(owner = request.user).order_by('date_added')
-    if games.owner != request.user:
-        raise Http404
     context = {'games':games}
     return render(request, 'board_game_web_sites/board_games.html', context)
 
@@ -48,10 +46,6 @@ def new_game(request):
 @login_required
 def reviews(request, game_id):
     game = Board_game.objects.get(id = game_id)
-
-    if game.owner != request.user:
-        raise Http404
-
     reviews = Review.objects.order_by('date_added')
     context = {'reviews': reviews}
     return render(request, 'board_game_web_sites/reviews.html', context)
@@ -93,3 +87,36 @@ def edit_review(request, review_id):
         return redirect('board_game_web_sites:game', game_id=game.id)
     context = {'review': review, 'game': game, 'form': form}
     return render(request, 'board_game_web_sites/edit_review.html', context)
+
+@login_required
+def borrow_game(request, game_id):
+    game = Board_game.objects.get(id=game_id)
+    user = request.user  
+
+    if user.user_borrows.nro < 3:
+        if request.method == 'POST':
+            game_borrowed = True
+            game.borrower = request.user  
+            user.user_borrows.nro += 1
+            game.save()
+            return redirect('board_game_web_sites:board_game', game_id = game.id)
+    else:
+        raise Http404
+
+    context = {'board_game':game, 'user':user}
+    return render(request, 'board_game_web_sites/borrow_board_game.html', context)
+
+@login_required
+def unborrow_game(request, game_id):
+    game = Board_game.objects.get(id = game_id)
+    user = request.user  
+
+    if request.method == 'POST':
+        game_borrowed = False
+        user.user_borrows.nro -= 1
+        game.save()
+        user.save()
+        return redirect('board_game_web_sites:board_game', game_id = game.id)
+
+    context = {'board_game': game}
+    return render(request, 'board_game_web_site/unborrow_board_game.html', context)
