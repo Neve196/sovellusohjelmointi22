@@ -17,5 +17,5 @@ urlpatterns = [
     #Review-page
     path('new_review/<int:game_id>/', views.new_review, name = 'new_review'),
     #Edit review page
-    path('edit_review/<int:entry_id>/', views.edit_review, name = 'edit_review'),
+    path('edit_review/<int:review_id>/', views.edit_review, name = 'edit_review'),
 ]

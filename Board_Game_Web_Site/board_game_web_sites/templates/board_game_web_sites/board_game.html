@@ -6,6 +6,10 @@
 
 {% block content %}
   <p>
+    {{ game.description }}
+  </p>
+
+  <p>
     <a href="{% url 'board_game_web_sites:new_review' game.id %}">Add new review</a>
   </p>
 
@@ -13,11 +17,14 @@
     <div class="card mb-3">
       <h4 class="card-header">
       {{ review.date_added|date:'M d, Y H:i' }}
-      <small><a href="{% url 'learning_logs:edit_entry' entry.id %}">
-        edit review</a></small>
+      
+      {% if review.owner == request.user %}
+        <small><a href="{% url 'board_game_web_sites:edit_review' review.id %}">
+          edit review</a></small>
+      {% endif %}
   </h4>
     <div class="card-body">
-      {{ review.text|linebreaks }}
+      {{ review.my_review|linebreaks }}
     </div>
   </div>
   

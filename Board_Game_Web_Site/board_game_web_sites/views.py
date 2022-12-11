@@ -15,15 +15,16 @@ def index(request):
 @login_required
 def games(request):
     """Show all board games"""
-    games = Board_game.objects.filter(owner = request.user).order_by('date_added')
+    games = Board_game.objects.order_by('date_added')
     context = {'games':games}
     return render(request, 'board_game_web_sites/board_games.html', context)
 
 @login_required
 def game(request, game_id):
-    """Show a single game"""
+    """Show a single game and all its reviews"""
     game = get_object_or_404(Board_game, id=game_id)
-    context = {'game': game}
+    reviews = game.review_set.order_by('-date_added')
+    context = {'game': game, 'reviews':reviews}
     return render(request, 'board_game_web_sites/board_game.html', context)
 
 @login_required
@@ -34,9 +35,10 @@ def new_game(request):
         form = GameForm()
     else:
         # POST data submitted; process data.
-        form = GameForm(request.POST)
+        form = GameForm(data=request.POST)
         if form.is_valid():
             new_game = form.save(commit=False)
+            new_game.owner = request.user
             new_game.save()
             return HttpResponseRedirect(reverse('board_game_web_sites:games'))
 
@@ -61,11 +63,12 @@ def new_review(request, game_id):
     else:
  # POST data submitted; process data.
         form = ReviewForm(data=request.POST)
-    if form.is_valid():
-        new_review = form.save(commit=False)
-        new_review.game = game
-        new_review.save()
-        return redirect('board_game_web_sites:game', game_id= game_id)
+        if form.is_valid():
+            new_review = form.save(commit=False)
+            new_review.game = game
+            new_review.owner = request.user
+            new_review.save()
+            return redirect('board_game_web_sites:game', game_id= game_id)
  # Display a blank or invalid form.
     context = {'game': game, 'form': form}
     return render(request, 'board_game_web_sites/new_review.html', context)
@@ -75,6 +78,8 @@ def edit_review(request, review_id):
     """Edit an existing review."""
     review = Review.objects.get(id=review_id)
     game = review.game
+    if review.owner != request.user:
+        raise Http404
  
     if request.method != 'POST':
     # Initial request; pre-fill form with the current review.

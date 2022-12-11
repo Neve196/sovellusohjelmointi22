@@ -6,7 +6,7 @@
 
 {% block content %}
   <ul>
-    {% for topic in topics %}
+    {% for game in games %}
       <li><h3>
         <a href="{% url 'board_game_web_sites:game' game.id %}">{{ game }}</a>
       </h3></li>
