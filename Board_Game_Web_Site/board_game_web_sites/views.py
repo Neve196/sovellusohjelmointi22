@@ -3,8 +3,8 @@ from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
-from . models import Board_game, Review
-from . forms import GameForm, ReviewForm
+from . models import Board_game, Review, Loaner
+from . forms import GameForm, ReviewForm, LoanForm
 
 # Create your views here.
 
@@ -94,21 +94,17 @@ def edit_review(request, review_id):
     return render(request, 'board_game_web_sites/edit_review.html', context)
 
 @login_required
-def borrow_game(request, game_id):
-    game = Board_game.objects.get(id=game_id)
-    user = request.user  
+def borrow_game(request):
 
-    if user.user_borrows.nro < 3:
-        if request.method == 'POST':
-            game_borrowed = True
-            game.borrower = request.user  
-            user.user_borrows.nro += 1
-            game.save()
-            return redirect('board_game_web_sites:board_game', game_id = game.id)
+    if request.method != 'POST':
+        form = LoanForm()
     else:
-        raise Http404
+        form = LoanForm(data=request.POST)
 
-    context = {'board_game':game, 'user':user}
+    if form.is_valid():
+        form.save()
+        return redirect('board_game_web_sites:game')
+    context = {'form':form}
     return render(request, 'board_game_web_sites/borrow_board_game.html', context)
 
 @login_required

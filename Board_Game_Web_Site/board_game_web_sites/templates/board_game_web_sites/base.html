@@ -31,6 +31,12 @@
           <a class="nav-link" href="{% url 'board_game_web_sites:games' %}">Games</a></li>
         </ul>
 
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+            <a class="nav-link" href="{% url 'board_game_web_sites:borrow_game' %}">Borrow Game</a></li>
+          </ul>
+
         <ul class="nav navbar-nav ml-auto">
           {% if user.is_authenticated %}
           <li class="nav-item">
