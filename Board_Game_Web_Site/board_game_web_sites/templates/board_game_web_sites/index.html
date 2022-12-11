@@ -1,11 +1,13 @@
 {% extends "board_game_web_sites/base.html" %}
 
-{% block header %}
-  <div class='jumbotron'>
-      <h1>Borrow board games.</h1>        
-  </div>
-{% endblock %}
+{% block page_header %}
+  <div class="jumbotron">
+    <h1 class="display-3">Borrow board games.</h1>
 
-{% block content %}
+    <p class="lead">Borrow board games and add games for others to borrow.
+      Leave a review to let others know what you thought of it!</p>
 
-{% endblock %}
+    <a class="btn btn-lg btn-primary" href="{% url 'users:register' %}"
+      role="button">Register &raquo;</a>
+</div>
+{% endblock page_header %}

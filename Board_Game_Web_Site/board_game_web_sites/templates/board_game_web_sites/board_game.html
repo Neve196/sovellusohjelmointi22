@@ -1,13 +1,28 @@
 {% extends 'board_game_web_sites/base.html' %}
 
-{% block header %}
-  <h2>{{ game }}</h2>
-{% endblock header %}
+{% block page_header %}
+  <h3>{{ game }}</h3>
+{% endblock page_header %}
 
 {% block content %}
-  <p>Reviews: </p>
   <p>
-  <a href="{% url 'board_game_web_sites:new_review' game.id %}">Add new review</a>
+    <a href="{% url 'board_game_web_sites:new_review' game.id %}">Add new review</a>
   </p>
+
+  {% for review in reviews %}
+    <div class="card mb-3">
+      <h4 class="card-header">
+      {{ review.date_added|date:'M d, Y H:i' }}
+      <small><a href="{% url 'learning_logs:edit_entry' entry.id %}">
+        edit review</a></small>
+  </h4>
+    <div class="card-body">
+      {{ review.text|linebreaks }}
+    </div>
+  </div>
+  
+  {% empty %}
+  <p>There are no reviews for this game yet.</p>
+  {% endfor %}
 
 {% endblock content %}

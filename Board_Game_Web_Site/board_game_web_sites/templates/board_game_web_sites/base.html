@@ -2,62 +2,66 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Board Games</title>
+  <title>Board Games</title>
 
-    {% bootstrap_css %}
-    {% bootstrap_javascript %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript jquery='full' %}
 
-  </head>
+</head>
   
-  <body>    
-    <!-- Static navbar -->
-    <nav class="navbar navbar-default navbar-static-top">
-      <div class="container">
-          
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed"
-              data-toggle="collapse" data-target="#navbar"
-              aria-expanded="false" aria-controls="navbar">
-          </button>
-          <a class="navbar-brand" href="{% url 'board_game_web_sites:index' %}">
-              Board Game Web Site</a>
-        </div>
+<body>
+  <nav class="navbar navbar-expand-md navbar-light bg-light mb-4 border">
 
-        <div id="navbarCollapse" class="navbar-collapse collapse">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-            <a class="nav-link" href="{% url 'board_game_web_sites:games' %}">Games</a></li>
-          </ul>
+      <a class="navbar-brand" href="{% url 'board_game_web_sites:index' %}">
+        Board Game Web Site</a>
+      
+      <button class="navbar-toggler" type="button" data-toggle="collapse"
+        data-target="#navbarCollapse" aria-controls="navbarCollapse"
+        aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span></button>
 
-          <ul class="nav navbar-nav navbar-right">
-            <li><a>{% if user.is_authenticated %}
-              Hello, {{ user.username }}.
-               {% else %}
-              <a href="{% url 'users:register' %}">Register</a> -
-              <a href="{% url 'users:login' %}">Log in</a>
-               {% endif %}
-              <a href="{% url 'users:logout' %}">Log out</a>
-              </a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-        
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+          <a class="nav-link" href="{% url 'board_game_web_sites:games' %}">Games</a></li>
+        </ul>
+
+        <ul class="nav navbar-nav ml-auto">
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <span class="navbar-text"}>Hello, {{ user.username }}.</span>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'users:logout' %}">Log out</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'users:register' %}">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'users:login' %}">Log in</a></li>
+          {% endif %}
+        </ul>
       </div>
     </nav>
-    
-    <div class="container">
+      
+    </div>
+  </nav>
+  
+  <main role="main" class="container">
+    <div class="pb-2 mb-2 border-bottom">
+    {% block page_header %}{% endblock page_header %}
+  </div>
+    <div>
+      {% block content %}{% endblock content %}
+    </div>
+  </main>
 
-      <div class="page-header">
-        {% block header %}{% endblock %}
-      </div>
-      <div>
-        {% block content %}{% endblock %}
-      </div>
+</body>
 
-    </div> <!-- /container -->
-  </body>
 </html>
