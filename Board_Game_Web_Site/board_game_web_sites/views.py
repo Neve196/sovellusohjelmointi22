@@ -92,32 +92,3 @@ def edit_review(request, review_id):
         return redirect('board_game_web_sites:game', game_id=game.id)
     context = {'review': review, 'game': game, 'form': form}
     return render(request, 'board_game_web_sites/edit_review.html', context)
-
-@login_required
-def borrow_game(request):
-
-    if request.method != 'POST':
-        form = LoanForm()
-    else:
-        form = LoanForm(data=request.POST)
-
-    if form.is_valid():
-        form.save()
-        return redirect('board_game_web_sites:game')
-    context = {'form':form}
-    return render(request, 'board_game_web_sites/borrow_board_game.html', context)
-
-@login_required
-def unborrow_game(request, game_id):
-    game = Board_game.objects.get(id = game_id)
-    user = request.user  
-
-    if request.method == 'POST':
-        game_borrowed = False
-        user.user_borrows.nro -= 1
-        game.save()
-        user.save()
-        return redirect('board_game_web_sites:board_game', game_id = game.id)
-
-    context = {'board_game': game}
-    return render(request, 'board_game_web_site/unborrow_board_game.html', context)

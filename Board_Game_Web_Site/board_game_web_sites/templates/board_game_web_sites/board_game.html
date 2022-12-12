@@ -10,7 +10,7 @@
   </p>
 
   <p>
-    <a href="{% url 'board_game_web_sites:new_review' game.id %}">Add new review</a>
+    <a href="{% url 'board_game_web_sites:new_review' game.id %}">Borrow a game</a>
   </p>
 
   {% for review in reviews %}
@@ -20,14 +20,13 @@
       
       {% if review.owner == request.user %}
         <small><a href="{% url 'board_game_web_sites:edit_review' review.id %}">
-          edit review</a></small>
+          return game and leave review</a></small>
       {% endif %}
   </h4>
     <div class="card-body">
       {{ review.my_review|linebreaks }}
-    </div>
-  </div>
   
+
   {% empty %}
   <p>There are no reviews for this game yet.</p>
   {% endfor %}

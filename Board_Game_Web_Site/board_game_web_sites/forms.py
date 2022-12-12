@@ -12,7 +12,7 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = ['my_review', 'stars']
-        labels = {'my_review':'Review:'}
+        labels = {'my_review':'Date:'}
         widgets = {'my_review': forms.Textarea(attrs={'cols': 80})}
 
 class LoanForm(forms.ModelForm):

@@ -38,4 +38,5 @@ class Loaner(models.Model):
     game = models.ForeignKey(Board_game, on_delete= models.CASCADE)
     #Date when borrowed
     message = models.CharField(max_length=10)
-
+    def __str__(self):
+        return self.message
