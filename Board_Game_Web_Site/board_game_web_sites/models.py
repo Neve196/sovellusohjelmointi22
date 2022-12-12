@@ -30,13 +30,3 @@ class Review(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self):
         return f"{self.my_review[:50]}..."
-
-class Loaner(models.Model):
-    #Username
-    username = models.ForeignKey(User, on_delete= models.CASCADE)
-    #Choose a game
-    game = models.ForeignKey(Board_game, on_delete= models.CASCADE)
-    #Date when borrowed
-    message = models.CharField(max_length=10)
-    def __str__(self):
-        return self.message

@@ -3,8 +3,8 @@ from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
-from . models import Board_game, Review, Loaner
-from . forms import GameForm, ReviewForm, LoanForm
+from . models import Board_game, Review
+from . forms import GameForm, ReviewForm
 
 # Create your views here.
 
